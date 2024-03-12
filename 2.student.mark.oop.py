@@ -1,67 +1,81 @@
-# 2.student.mark.py
+class Student:
+  def __init__(self, id, name, dob):
+    self.id = id
+    self.name = name
+    self.dob = dob
 
-students = []
-courses = []
-marks = []
+  def __str__(self):
+    return f"Student ID: {self.id}, Name: {self.name}, DoB: {self.dob}"
 
-def input_number_of_students():
-    num = int(input("Enter number of students: "))
-    return num
+class Course:
+  def __init__(self, id, name):
+    self.id = id
+    self.name = name
 
-def input_student_info():
-    name = input("Enter student name: ")
+  def __str__(self):
+    return f"Course ID: {self.id}, Name: {self.name}"
+
+class Mark:
+  def __init__(self, student_id, course_id, mark):
+    self.student_id = student_id
+    self.course_id = course_id
+    self.mark = mark
+
+  def __str__(self):
+    return f"Student ID: {self.student_id}, Course ID: {self.course_id}, Mark: {self.mark}"
+
+class CourseMarkSystem:
+  def __init__(self):
+    self.students = []
+    self.courses = []
+    self.marks = []
+
+  def input_student(self):
     id = input("Enter student id: ")
+    name = input("Enter student name: ")
     dob = input("Enter student DoB: ")
-    major = input("Enter student major:")
+    self.students.append(Student(id, name, dob))
 
-    students.append({"id": id, "name": name, "dob": dob, "major": major})
-
-def input_number_of_courses():
-    num = int(input("Enter number of courses: "))
-    return num
-def input_name_of_courses():
-    name = int(input("Enter name of courses:"))
-    return name
-      
-def input_course_info():
+  def input_course(self):
     id = input("Enter course id: ")
     name = input("Enter course name: ")
-    courses.append({"id": id, "name": name})
+    self.courses.append(Course(id, name))
 
-def input_marks():
+  def input_marks(self):
     course_id = input("Select a course by id: ")
-    for student in students:
-        mark = float(input(f"Enter mark for student {student['name']}: "))
-        marks.append({"student_id": student["id"], "course_id": course_id, "mark": mark})
+    for student in self.students:
+      mark = float(input(f"Enter mark for student {student.name}: "))
+      self.marks.append(Mark(student.id, course_id, mark))
 
-def list_courses():
-    for course in courses:
-        print(course)
+  def list_courses(self):
+    for course in self.courses:
+      print(course)
 
-def list_students():
-    for student in students:
-        print(student)
+  def list_students(self):
+    for student in self.students:
+      print(student)
 
-def show_marks():
+  def show_marks(self):
     course_id = input("Select a course by id: ")
-    for mark in marks:
-        if mark["course_id"] == course_id:
-            print(f"Student ID: {mark['student_id']}, Mark: {mark['mark']}")
+    for mark in self.marks:
+      if mark.course_id == course_id:
+        print(f"Student ID: {mark.student_id}, Mark: {mark.mark}")
 
 def main():
-    num_students = input_number_of_students()
-    for _ in range(num_students):
-        input_student_info()
+  system = CourseMarkSystem()
+  num_students = int(input("Enter number of students: "))
+  for _ in range(num_students):
+    system.input_student()
 
-    num_courses = input_number_of_courses()
-    for _ in range(num_courses):
-        input_course_info()
+  num_courses = int(input("Enter number of courses: "))
+  for _ in range(num_courses):
+    system.input_course()
 
-    input_marks()
+  system.input_marks()
 
-    list_courses()
-    list_students()
-    show_marks()
+  system.list_courses()
+  system.list_students()
+  system.show_marks()
 
 if __name__ == "__main__":
-    main()
+  main()
